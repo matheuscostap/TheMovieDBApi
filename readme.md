@@ -1,4 +1,4 @@
-#TheMoviesDBApi
+# TheMoviesDBApi
 Projeto Android utilizando a API [TheMoviesDataBase](https://www.themoviedb.org/) e padrão MVVM. O App exibe uma lista de seriados e suas informações.
 
 ### Bibliotecas
