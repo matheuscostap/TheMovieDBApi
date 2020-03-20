@@ -10,7 +10,7 @@ ext {
     androidArchitectureVersion = "1.1.0"
     koin_version = '1.0.2'
     paging_version = "1.0.1"
-    picasso_version = "2.71828"
+    coil_version = "0.9.5"
 }
 
 def keyFile = rootProject.file("key.properties")
@@ -88,8 +88,6 @@ dependencies {
     //Paging
     implementation "android.arch.paging:runtime:$paging_version"
 
-    //Picasso
-    //implementation "com.squareup.picasso:picasso:$picasso_version"
-
-    implementation "io.coil-kt:coil:0.9.5"
+    //Coil
+    implementation "io.coil-kt:coil:$coil_version"
 }
