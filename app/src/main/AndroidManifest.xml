@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.costa.matheus.filmesapi">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+            android:name=".FilmesAPIApplication"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity
+                android:name=".view.moviedetails.MovieDetailsActivity"
+                android:label="@string/title_activity_movie_details"
+                android:parentActivityName=".view.movielist.MovieListActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.costa.matheus.filmesapi.view.movielist.MovieListActivity"/>
+        </activity>
+        <activity
+                android:name=".view.movielist.MovieListActivity"
+                android:label="@string/app_name"
+                android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
