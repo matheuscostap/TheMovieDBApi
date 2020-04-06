@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.view.ViewCompat
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +17,7 @@ import com.costa.matheus.filmesapi.model.MovieModel
 import com.costa.matheus.filmesapi.utils.convertDate
 import kotlinx.android.synthetic.main.row_movie.view.*
 
-class MovieListAdapter(val ctx: Context, val onClick: (movie: MovieModel) -> Unit): PagedListAdapter<MovieModel, MovieViewHolder>(itemComparator){
+class MovieListAdapter(val ctx: Context, val onClick: (movie: MovieModel, imageView: ImageView) -> Unit): PagedListAdapter<MovieModel, MovieViewHolder>(itemComparator){
 
     companion object {
         val itemComparator = object : DiffUtil.ItemCallback<MovieModel>() {
@@ -45,11 +47,12 @@ class MovieListAdapter(val ctx: Context, val onClick: (movie: MovieModel) -> Uni
             holder.ivPoster.load("$path${movie.poster_path}")
             holder.ivBack.load("$path${movie.backdrop_path}")
 
+            ViewCompat.setTransitionName(holder.ivPoster, it.id.toString())
+
             holder.itemView.setOnClickListener {
-                onClick(movie)
+                onClick(movie, holder.ivPoster)
             }
         }
-
     }
 }
 

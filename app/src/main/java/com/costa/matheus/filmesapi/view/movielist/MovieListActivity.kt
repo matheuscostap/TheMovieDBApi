@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,10 +37,17 @@ class MovieListActivity : AppCompatActivity() {
         contentList.visibility = View.GONE
         observeVM()
 
-        adapter = MovieListAdapter(this){
+        adapter = MovieListAdapter(this){ movie, imageView ->
             val intent = Intent(this, MovieDetailsActivity::class.java)
-            intent.putExtra("movie", it)
-            startActivity(intent)
+            intent.putExtra("movie", movie)
+            intent.putExtra("transition_name", ViewCompat.getTransitionName(imageView))
+
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this,
+                imageView,
+                ViewCompat.getTransitionName(imageView) ?: "")
+
+            startActivity(intent, options.toBundle())
         }
 
         val llm = LinearLayoutManager(this)

@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import coil.decode.DataSource
+import coil.request.Request
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.*
 import com.costa.matheus.filmesapi.utils.AlertUtils
@@ -31,6 +33,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_details)
 
+        supportPostponeEnterTransition()
+
         movie = intent.extras.getSerializable("movie") as MovieModel
         Log.i("Details", "name -> ${movie.name}")
         toolbar.title = movie.name
@@ -40,7 +44,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         observeVM()
         viewModel.getGenres()
         viewModel.getSimilar(movie.id)
-        contentDetails.visibility = View.GONE
+        //contentDetails.visibility = View.GONE
 
         setupViews()
     }
@@ -95,11 +99,23 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     private fun setupViews(){
+        ivPoster.transitionName = movie.id.toString()
+
         tvName.text = movie.name
         tvDate.text = movie.first_air_date.convertDate()
         tvVotes.text = movie.vote_average.toString()
         val path = "https://image.tmdb.org/t/p/w200${movie.poster_path}"
-        ivPoster.load(path)
+        ivPoster.load(path){
+            listener(object : Request.Listener{
+                override fun onSuccess(data: Any, source: DataSource) {
+                    supportStartPostponedEnterTransition()
+                }
+
+                override fun onError(data: Any?, throwable: Throwable) {
+                    supportStartPostponedEnterTransition()
+                }
+            })
+        }
         tvSynopsis.text = movie.overview
 
         adapter = SimilarListAdapter(this, similarMovies)
