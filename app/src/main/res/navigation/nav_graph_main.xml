@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph_main"
+        app:startDestination="@id/trending">
+
+
+    <fragment
+        android:id="@+id/trending"
+        android:name="com.costa.matheus.filmesapi.view.trending.TrendingFragment"
+        android:label="trending_fragment"
+        tools:layout="@layout/fragment_trending">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/catalogue"
+        android:name="com.costa.matheus.filmesapi.view.catalogue.CatalogueFragment"
+        android:label="catalogue_fragment"
+        tools:layout="@layout/fragment_catalogue">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/celebrities"
+        android:name="com.costa.matheus.filmesapi.view.celebrities.CelebritiesFragment"
+        android:label="celebrities_fragment"
+        tools:layout="@layout/fragment_celebrities">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.costa.matheus.filmesapi.view.settings.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/fragment_settings">
+
+    </fragment>
+
+</navigation>
