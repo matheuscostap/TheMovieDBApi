@@ -1,6 +1,7 @@
 package com.costa.matheus.filmesapi.di
 
 import com.costa.matheus.filmesapi.repository.MoviesDataSource
+import com.costa.matheus.filmesapi.repository.trending.TrendingDataSource
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.module
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit
 val retrofit_module = module {
     single { createOkHttpClient() }
     single { createWebService<MoviesDataSource>(get(), "https://api.themoviedb.org/") }
+    single { createWebService<TrendingDataSource>(get(), "https://api.themoviedb.org/") }
 }
 
 fun createOkHttpClient(): OkHttpClient {

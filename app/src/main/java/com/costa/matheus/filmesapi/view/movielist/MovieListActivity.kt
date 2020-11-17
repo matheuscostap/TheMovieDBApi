@@ -12,15 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.AbstractModel
-import com.costa.matheus.filmesapi.model.MovieModel
+import com.costa.matheus.filmesapi.model.dto.MovieModel
 import com.costa.matheus.filmesapi.model.PopularResponseModel
-import com.costa.matheus.filmesapi.repository.MovieRepository
 import com.costa.matheus.filmesapi.utils.AlertUtils
 import com.costa.matheus.filmesapi.view.moviedetails.MovieDetailsActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MovieListActivity : AppCompatActivity() {

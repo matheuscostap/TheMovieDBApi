@@ -1,14 +1,11 @@
 package com.costa.matheus.filmesapi.view.movielist
 
-import android.util.Log
-import androidx.arch.core.util.Function
 import androidx.lifecycle.*
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.costa.matheus.filmesapi.model.AbstractModel
-import com.costa.matheus.filmesapi.model.MovieModel
+import com.costa.matheus.filmesapi.model.dto.MovieModel
 import com.costa.matheus.filmesapi.model.PopularResponseModel
-import com.costa.matheus.filmesapi.repository.MoviesKeyedDataSource
 import com.costa.matheus.filmesapi.repository.MoviesKeyedDataSourceFactory
 
 class MovieListViewModel(private val factory: MoviesKeyedDataSourceFactory): ViewModel(){

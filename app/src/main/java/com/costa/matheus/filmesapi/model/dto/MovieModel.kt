@@ -1,4 +1,4 @@
-package com.costa.matheus.filmesapi.model
+package com.costa.matheus.filmesapi.model.dto
 
 import java.io.Serializable
 
