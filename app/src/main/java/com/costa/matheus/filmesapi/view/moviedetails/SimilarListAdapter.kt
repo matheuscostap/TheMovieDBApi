@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.costa.matheus.filmesapi.R
-import com.costa.matheus.filmesapi.model.MovieModel
+import com.costa.matheus.filmesapi.model.dto.MovieModel
 import kotlinx.android.synthetic.main.row_similar.view.*
 
 class SimilarListAdapter (

@@ -3,7 +3,6 @@ package com.costa.matheus.filmesapi.view.moviedetails
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.*
+import com.costa.matheus.filmesapi.model.dto.MovieModel
 import com.costa.matheus.filmesapi.utils.AlertUtils
 import com.costa.matheus.filmesapi.utils.convertDate
 

@@ -1,17 +1,15 @@
 package com.costa.matheus.filmesapi.view.movielist
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.Coil
 import coil.api.load
 import com.costa.matheus.filmesapi.R
-import com.costa.matheus.filmesapi.model.MovieModel
+import com.costa.matheus.filmesapi.model.dto.MovieModel
 import com.costa.matheus.filmesapi.utils.convertDate
 import kotlinx.android.synthetic.main.row_movie.view.*
 

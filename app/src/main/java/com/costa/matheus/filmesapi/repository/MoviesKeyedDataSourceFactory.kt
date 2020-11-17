@@ -3,8 +3,7 @@ package com.costa.matheus.filmesapi.repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.costa.matheus.filmesapi.model.MovieModel
-import com.costa.matheus.filmesapi.model.PopularResponseModel
+import com.costa.matheus.filmesapi.model.dto.MovieModel
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 

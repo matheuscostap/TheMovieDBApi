@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.ItemKeyedDataSource
 import com.costa.matheus.filmesapi.model.AbstractModel
-import com.costa.matheus.filmesapi.model.MovieModel
+import com.costa.matheus.filmesapi.model.dto.MovieModel
 import com.costa.matheus.filmesapi.model.PopularResponseModel
 
 class MoviesKeyedDataSource(private val repository: MovieRepository): ItemKeyedDataSource<Int, MovieModel>() {
