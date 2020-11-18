@@ -11,5 +11,6 @@ data class MovieModel(
     val first_air_date: String,
     val poster_path: String,
     val backdrop_path: String,
-    val genre_ids: List<Long>
+    val genre_ids: List<Long>,
+    val title: String
 ): Serializable

@@ -14,4 +14,5 @@
     <color name="gray400a">#55bdbdbd</color>
     <color name="gray200">#eeeeee</color>
     <color name="gray200a">#55eeeeee</color>
+    <color name="white">#FFFFFF</color>
 </resources>
