@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.costa.matheus.filmesapi.R
+import com.costa.matheus.filmesapi.view.base.BaseFragment
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +19,7 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setToolbarTitle("Settings \u2699\uFE0F")
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
