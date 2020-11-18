@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.dto.MovieModel
+import com.costa.matheus.filmesapi.utils.Constants
 import kotlinx.android.synthetic.main.trending_movie_row.view.*
 
 class TrendingListAdapter (
@@ -23,8 +24,7 @@ class TrendingListAdapter (
         val movie = items[position]
 
         holder.tv_movie_name.text = movie.title
-        val path = "https://image.tmdb.org/t/p/w200"
-        holder.iv_movie_poster.load("$path${movie.backdrop_path}")
+        holder.iv_movie_poster.load("${Constants.imagePath1280}${movie.backdrop_path}")
     }
 
     override fun getItemCount(): Int {
