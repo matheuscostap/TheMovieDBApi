@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.costa.matheus.filmesapi.R
+import com.costa.matheus.filmesapi.view.base.BaseFragment
 
-class CelebritiesFragment : Fragment() {
+class CelebritiesFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +19,7 @@ class CelebritiesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        setToolbarTitle("Celebrities \uD83E\uDDB8\u200D")
         return inflater.inflate(R.layout.fragment_celebrities, container, false)
     }
 

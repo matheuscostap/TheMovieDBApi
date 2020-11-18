@@ -12,12 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.dto.MovieModel
 import com.costa.matheus.filmesapi.repository.state.RequestState
+import com.costa.matheus.filmesapi.view.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_trending.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class TrendingFragment : Fragment() {
+class TrendingFragment : BaseFragment() {
 
     private val viewModel: TrendingViewModel by viewModel()
     private lateinit var adapter: TrendingListAdapter
@@ -34,6 +35,7 @@ class TrendingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_trending, container, false)
+        setToolbarTitle("Trending \uD83D\uDD25")
         return view
     }
 
