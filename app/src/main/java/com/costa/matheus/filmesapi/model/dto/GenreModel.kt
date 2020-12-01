@@ -1,4 +1,4 @@
-package com.costa.matheus.filmesapi.model
+package com.costa.matheus.filmesapi.model.dto
 
 data class GenreModel (
     val id: Long,
