@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.*
+import com.costa.matheus.filmesapi.model.dto.GenreModel
 import com.costa.matheus.filmesapi.model.dto.MovieModel
+import com.costa.matheus.filmesapi.model.response.CatalogueResponse
 import com.costa.matheus.filmesapi.utils.AlertUtils
 import com.costa.matheus.filmesapi.utils.convertDate
 
@@ -46,7 +48,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     private fun observeVM(){
-        viewModel.event.observe(this, Observer<AbstractModel<GenreResponseModel>>{
+        viewModel.event.observe(this, Observer<AbstractModel<CatalogueResponse>>{
             if(it.isLoading){
                 progressBar.visibility = View.VISIBLE
             }else{

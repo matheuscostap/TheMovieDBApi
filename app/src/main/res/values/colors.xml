@@ -15,4 +15,7 @@
     <color name="gray200">#eeeeee</color>
     <color name="gray200a">#55eeeeee</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="genreTransparency">#99000000</color>
+    <color name="fullTransparency">#00000000</color>
 </resources>

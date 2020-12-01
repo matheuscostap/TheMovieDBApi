@@ -3,7 +3,7 @@ package com.costa.matheus.filmesapi.repository
 import android.util.Log
 import com.costa.matheus.filmesapi.BuildConfig
 import com.costa.matheus.filmesapi.model.AbstractModel
-import com.costa.matheus.filmesapi.model.GenreResponseModel
+import com.costa.matheus.filmesapi.model.response.CatalogueResponse
 import com.costa.matheus.filmesapi.model.PopularResponseModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -11,7 +11,7 @@ import retrofit2.Response
 
 interface MovieRepository{
     fun getPopular(page: Int, callback: (response: AbstractModel<PopularResponseModel>) -> Unit)
-    fun getGenres(callback: (response: AbstractModel<GenreResponseModel>) -> Unit)
+    fun getGenres(callback: (response: AbstractModel<CatalogueResponse>) -> Unit)
     fun getSimilar(id: Long, callback: (response: AbstractModel<PopularResponseModel>) -> Unit)
 }
 
@@ -37,14 +37,14 @@ class MovieRepositoryImpl(private val datasource: MoviesDataSource) : MovieRepos
         })
     }
 
-    override fun getGenres(callback: (response: AbstractModel<GenreResponseModel>) -> Unit) {
+    override fun getGenres(callback: (response: AbstractModel<CatalogueResponse>) -> Unit) {
         callback(AbstractModel(isLoading = true))
-        datasource.getGenres(BuildConfig.MoviesAPIKey, "pt-BR").enqueue(object : Callback<GenreResponseModel>{
-            override fun onFailure(call: Call<GenreResponseModel>?, t: Throwable?) {
+        datasource.getGenres(BuildConfig.MoviesAPIKey, "pt-BR").enqueue(object : Callback<CatalogueResponse>{
+            override fun onFailure(call: Call<CatalogueResponse>?, t: Throwable?) {
                 callback(AbstractModel(error = t))
             }
 
-            override fun onResponse(call: Call<GenreResponseModel>?, response: Response<GenreResponseModel>?) {
+            override fun onResponse(call: Call<CatalogueResponse>?, response: Response<CatalogueResponse>?) {
                 response?.let {
                     if (response.code() == 200){
                         Log.i("MovieRepository","onResponse() success body -> ${it.body()}")

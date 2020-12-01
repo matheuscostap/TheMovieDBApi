@@ -1,6 +1,6 @@
 package com.costa.matheus.filmesapi.repository
 
-import com.costa.matheus.filmesapi.model.GenreResponseModel
+import com.costa.matheus.filmesapi.model.response.CatalogueResponse
 import com.costa.matheus.filmesapi.model.PopularResponseModel
 import retrofit2.Call
 import retrofit2.http.GET
@@ -20,7 +20,7 @@ interface MoviesDataSource{
     fun getGenres(
         @Query("api_key") key: String,
         @Query("language") language: String
-    ): Call<GenreResponseModel>
+    ): Call<CatalogueResponse>
 
     @GET("/3/tv/{tv_id}/similar")
     fun getSimilar(
