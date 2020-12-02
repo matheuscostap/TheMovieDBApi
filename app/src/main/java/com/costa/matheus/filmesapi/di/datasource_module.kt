@@ -1,7 +1,7 @@
 package com.costa.matheus.filmesapi.di
 
-import com.costa.matheus.filmesapi.repository.MoviesDataSource
 import com.costa.matheus.filmesapi.repository.catalogue.CatalogueDataSource
+import com.costa.matheus.filmesapi.repository.celebrities.CelebritiesDataSource
 import com.costa.matheus.filmesapi.repository.trending.TrendingDataSource
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,9 +14,9 @@ val API_URL = "https://api.themoviedb.org/"
 
 val retrofit_module = module {
     single { createOkHttpClient() }
-    single { createWebService<MoviesDataSource>(get(), API_URL) }
     single { createWebService<TrendingDataSource>(get(), API_URL) }
     single { createWebService<CatalogueDataSource>(get(), API_URL) }
+    single { createWebService<CelebritiesDataSource>(get(), API_URL) }
 }
 
 fun createOkHttpClient(): OkHttpClient {
