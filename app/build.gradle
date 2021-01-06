@@ -16,6 +16,7 @@ ext {
     coil_version = "0.9.5"
     coroutines_version = "1.3.9"
     viewmodel_version = "2.2.0"
+    youtube_player_version = "10.0.5"
 }
 
 def keyFile = rootProject.file("key.properties")
@@ -110,4 +111,7 @@ dependencies {
 
     //Coil
     implementation "io.coil-kt:coil:$coil_version"
+
+    //Youtube Player
+    implementation "com.pierfrancescosoffritti.androidyoutubeplayer:core:$youtube_player_version"
 }

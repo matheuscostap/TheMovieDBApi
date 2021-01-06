@@ -10,4 +10,9 @@ open class BaseFragment : Fragment() {
         activity.supportActionBar?.title = title.toUpperCase()
     }
 
+    fun setToolbarBackButtonEnabled(enabled: Boolean) {
+        val activity = requireActivity() as NavigationActivity
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(enabled)
+    }
+
 }

@@ -35,6 +35,7 @@ class CatalogueFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setToolbarTitle("Catalogue \uD83D\uDCD6")
+        setToolbarBackButtonEnabled(false)
         return inflater.inflate(R.layout.fragment_catalogue, container, false)
     }
 

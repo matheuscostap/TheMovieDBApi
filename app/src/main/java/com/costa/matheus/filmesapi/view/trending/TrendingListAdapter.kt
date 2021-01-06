@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.trending_movie_row.view.*
 
 class TrendingListAdapter (
     val ctx: Context,
-    private val items: List<MovieModel>): RecyclerView.Adapter<TrendingListViewHolder>() {
+    private val items: List<MovieModel>,
+    private val onItemClick: (MovieModel) -> Unit ): RecyclerView.Adapter<TrendingListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingListViewHolder {
         val view = LayoutInflater.from(ctx).inflate(R.layout.trending_movie_row, parent, false)
@@ -25,6 +26,7 @@ class TrendingListAdapter (
 
         holder.tv_movie_name.text = movie.title
         holder.iv_movie_poster.load("${Constants.imagePath1280}${movie.backdrop_path}")
+        holder.itemView.setOnClickListener { onItemClick(movie) }
     }
 
     override fun getItemCount(): Int {
