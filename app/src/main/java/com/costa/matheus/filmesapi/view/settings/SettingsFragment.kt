@@ -20,6 +20,7 @@ class SettingsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setToolbarTitle("Settings \u2699\uFE0F")
+        setToolbarBackButtonEnabled(false)
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 

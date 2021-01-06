@@ -12,6 +12,17 @@
         android:label="trending_fragment"
         tools:layout="@layout/fragment_trending">
 
+        <action
+                android:id="@+id/action_trending_to_movie_details"
+                app:destination="@id/movieDetails"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetails"
+        android:name="com.costa.matheus.filmesapi.view.moviedetails.MovieDetailsFragment"
+        android:label="movie_details_fragment"
+        tools:layout="@layout/fragment_movie_details">
+
     </fragment>
 
     <fragment

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.dto.MovieModel
@@ -36,6 +37,7 @@ class TrendingFragment : BaseFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_trending, container, false)
         setToolbarTitle("Trending \uD83D\uDD25")
+        setToolbarBackButtonEnabled(false)
         return view
     }
 
@@ -48,10 +50,18 @@ class TrendingFragment : BaseFragment() {
     }
 
     private fun setupList() {
-        adapter = TrendingListAdapter(requireContext(), movies)
+        adapter = TrendingListAdapter(requireContext(), movies, onItemClick = {
+            goToMovieDetails()
+        })
         val llm = LinearLayoutManager(requireContext())
         rv_trending.adapter = adapter
         rv_trending.layoutManager = llm
+    }
+
+    private fun goToMovieDetails() {
+        val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.action_trending_to_movie_details)
     }
 
     private fun observeViewModel() {
@@ -68,6 +78,7 @@ class TrendingFragment : BaseFragment() {
                         Log.i("Trending", state.data.toString())
 
                         state.data?.let { response ->
+                            movies.clear()
                             movies.addAll(response.results)
                             adapter.notifyDataSetChanged()
                         }

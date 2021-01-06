@@ -38,6 +38,7 @@ class CelebritiesFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         setToolbarTitle("Celebrities \uD83E\uDDB8\u200D")
+        setToolbarBackButtonEnabled(false)
         return inflater.inflate(R.layout.fragment_celebrities, container, false)
     }
 
