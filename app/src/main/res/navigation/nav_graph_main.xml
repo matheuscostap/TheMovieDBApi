@@ -23,6 +23,16 @@
         android:label="movie_details_fragment"
         tools:layout="@layout/fragment_movie_details">
 
+        <argument
+            android:name="movieId"
+            app:argType="long"
+            android:defaultValue="0L"/>
+
+        <argument
+                android:name="movieName"
+                app:argType="string"
+                android:defaultValue="Detalhes"/>
+
     </fragment>
 
     <fragment
