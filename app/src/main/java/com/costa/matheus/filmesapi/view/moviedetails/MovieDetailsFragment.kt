@@ -9,6 +9,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.NavHostFragment
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.view.base.BaseFragment
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import kotlinx.android.synthetic.main.fragment_movie_details.*
 
 class MovieDetailsFragment : BaseFragment() {
 
@@ -30,8 +34,26 @@ class MovieDetailsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movie_details, container, false)
-        setToolbarTitle("Movie Details")
+
+        val id = arguments?.getInt("movieId")
+        val name = arguments?.getString("movieName")
+
+        setToolbarTitle(name ?: "Detalhes")
         setToolbarBackButtonEnabled(true)
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        lifecycle.addObserver(youtubePlayer)
+        youtubePlayer.addYouTubePlayerListener(playerListener)
+    }
+
+    private val playerListener = object : AbstractYouTubePlayerListener() {
+        override fun onReady(youTubePlayer: YouTubePlayer) {
+            val video = "1AaBnOLALFY"
+            youTubePlayer.loadVideo(video, 0f)
+        }
     }
 }

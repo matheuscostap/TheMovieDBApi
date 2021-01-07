@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,17 +52,18 @@ class TrendingFragment : BaseFragment() {
 
     private fun setupList() {
         adapter = TrendingListAdapter(requireContext(), movies, onItemClick = {
-            goToMovieDetails()
+            goToMovieDetails(it)
         })
         val llm = LinearLayoutManager(requireContext())
         rv_trending.adapter = adapter
         rv_trending.layoutManager = llm
     }
 
-    private fun goToMovieDetails() {
+    private fun goToMovieDetails(movie: MovieModel) {
+        val bundle = bundleOf("movieId" to movie.id, "movieName" to movie.title)
         val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        navController.navigate(R.id.action_trending_to_movie_details)
+        navController.navigate(R.id.action_trending_to_movie_details, bundle)
     }
 
     private fun observeViewModel() {
