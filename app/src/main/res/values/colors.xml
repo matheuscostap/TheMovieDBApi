@@ -18,4 +18,5 @@
     <color name="black">#000000</color>
     <color name="genreTransparency">#99000000</color>
     <color name="fullTransparency">#00000000</color>
+    <color name="blue">#4285F4</color>
 </resources>

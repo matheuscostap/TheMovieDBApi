@@ -4,27 +4,189 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.moviedetails.MovieDetailsFragment">
+        tools:context=".view.moviedetails.MovieDetailsFragment"
+        android:background="@color/black">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/youtubePlayer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:useWebUi="false"
-                app:showYouTubeButton="false"
-                app:showFullScreenButton="false"
-                app:showVideoCurrentTime="true"
-                app:showVideoDuration="false"
-                app:showSeekBar="false"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                    android:id="@+id/linear_video"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                        android:id="@+id/movie_details_player"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:showFullScreenButton="false"
+                        app:showSeekBar="false"
+                        app:showVideoCurrentTime="true"
+                        app:showVideoDuration="false"
+                        app:showYouTubeButton="false"
+                        app:useWebUi="false" />
+
+                <ImageView
+                        android:id="@+id/iv_movie_backdrop_no_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="230dp"
+                        android:scaleType="centerCrop" />
+            </LinearLayout>
+
+            <TextView
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/tv_movie_genres"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/blue"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linear_video" />
+
+            <TextView
+                    android:layout_marginTop="24dp"
+                    android:id="@+id/tv_year_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ano"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/linear_movie_year"
+                    app:layout_constraintStart_toStartOf="@+id/linear_movie_year"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_movie_genres" />
+
+            <LinearLayout
+                    android:layout_marginTop="6dp"
+                    android:id="@+id/linear_movie_year"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/movie_detail_white_circle"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/linear_movie_rating"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_year_label">
+
+                <TextView
+                        android:id="@+id/tv_movie_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <TextView
+                    android:layout_marginTop="24dp"
+                    android:id="@+id/tv_rating_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nota"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/linear_movie_rating"
+                    app:layout_constraintStart_toStartOf="@+id/linear_movie_rating"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_movie_genres" />
+
+            <LinearLayout
+                    android:layout_marginTop="6dp"
+                    android:id="@+id/linear_movie_rating"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/movie_detail_white_circle"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/linear_movie_runtime"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/linear_movie_year"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_rating_label">
+
+                <TextView
+                        android:id="@+id/tv_movie_rating"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <TextView
+                    android:layout_marginTop="24dp"
+                    android:id="@+id/tv_runtime_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Duração"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/linear_movie_runtime"
+                    app:layout_constraintStart_toStartOf="@+id/linear_movie_runtime"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_movie_genres" />
+
+            <LinearLayout
+                    android:layout_marginTop="6dp"
+                    android:id="@+id/linear_movie_runtime"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/movie_detail_white_circle"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/linear_movie_rating"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_runtime_label">
+
+                <TextView
+                        android:id="@+id/tv_movie_runtime"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <TextView
+                    android:textSize="24dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:textStyle="italic"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="28dp"
+                    android:id="@+id/tv_movie_tagline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/linear_movie_rating" />
+
+            <TextView
+                    android:justificationMode="inter_word"
+                    android:id="@+id/tv_movie_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_movie_tagline" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </FrameLayout>
