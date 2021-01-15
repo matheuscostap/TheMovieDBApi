@@ -12,13 +12,23 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintBottom_toTopOf="@+id/view_line"
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/nav_graph_main" />
 
 
+    <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#202020"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:background="#f00"
+            app:labelVisibilityMode="labeled"
+            app:itemTextColor="@color/tab_icon_colors"
+            app:itemIconTint="@color/tab_icon_colors"
+            android:background="@color/black"
             app:menu="@menu/bottom_navigation_items"
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"

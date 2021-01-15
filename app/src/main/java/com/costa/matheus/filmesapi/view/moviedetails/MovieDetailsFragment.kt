@@ -111,6 +111,11 @@ class MovieDetailsFragment : BaseFragment() {
 
             tv_movie_overview.visibility = View.VISIBLE
             tv_movie_overview.text = it.overview
+
+            iv_movie_details_poster.visibility = View.VISIBLE
+            iv_movie_details_poster.load("${Constants.imagePath1280}${it.poster_path}") {
+                crossfade(true)
+            }
         }
     }
 

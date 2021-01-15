@@ -44,10 +44,10 @@
             </LinearLayout>
 
             <TextView
-                    android:layout_marginTop="16dp"
                     android:id="@+id/tv_movie_genres"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:textAlignment="center"
                     android:textColor="@color/blue"
                     android:textSize="18sp"
@@ -56,10 +56,10 @@
                     app:layout_constraintTop_toBottomOf="@+id/linear_video" />
 
             <TextView
-                    android:layout_marginTop="24dp"
                     android:id="@+id/tv_year_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
                     android:text="Ano"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -68,10 +68,10 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_movie_genres" />
 
             <LinearLayout
-                    android:layout_marginTop="6dp"
                     android:id="@+id/linear_movie_year"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:layout_marginTop="6dp"
                     android:background="@drawable/movie_detail_white_circle"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toStartOf="@+id/linear_movie_rating"
@@ -92,10 +92,10 @@
             </LinearLayout>
 
             <TextView
-                    android:layout_marginTop="24dp"
                     android:id="@+id/tv_rating_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
                     android:text="Nota"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -104,10 +104,10 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_movie_genres" />
 
             <LinearLayout
-                    android:layout_marginTop="6dp"
                     android:id="@+id/linear_movie_rating"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:layout_marginTop="6dp"
                     android:background="@drawable/movie_detail_white_circle"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toStartOf="@+id/linear_movie_runtime"
@@ -128,10 +128,10 @@
             </LinearLayout>
 
             <TextView
-                    android:layout_marginTop="24dp"
                     android:id="@+id/tv_runtime_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
                     android:text="Duração"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -140,10 +140,10 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_movie_genres" />
 
             <LinearLayout
-                    android:layout_marginTop="6dp"
                     android:id="@+id/linear_movie_runtime"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
+                    android:layout_marginTop="6dp"
                     android:background="@drawable/movie_detail_white_circle"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -164,27 +164,63 @@
             </LinearLayout>
 
             <TextView
-                    android:textSize="24dp"
-                    android:fontFamily="sans-serif-thin"
-                    android:textStyle="italic"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="28dp"
                     android:id="@+id/tv_movie_tagline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="24dp"
+                    android:textStyle="italic"
                     app:layout_constraintTop_toBottomOf="@+id/linear_movie_rating" />
 
             <TextView
-                    android:justificationMode="inter_word"
                     android:id="@+id/tv_movie_overview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:justificationMode="inter_word"
                     android:padding="16dp"
                     android:textAlignment="textStart"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintTop_toBottomOf="@+id/tv_movie_tagline" />
+
+            <ImageView
+                    android:id="@+id/iv_movie_details_poster"
+                    android:layout_width="140dp"
+                    android:layout_height="180dp"
+                    android:layout_margin="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_movie_overview" />
+
+            <Button
+                    android:textSize="20sp"
+                    android:text="Avaliar"
+                    android:id="@+id/btn_movie_rate"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_movie_reviews"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_movie_details_poster"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_movie_overview"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+            <Button
+                    android:textSize="20sp"
+                    android:text="Resenhas"
+                    android:id="@+id/btn_movie_reviews"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_movie_details_poster"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_movie_rate" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
