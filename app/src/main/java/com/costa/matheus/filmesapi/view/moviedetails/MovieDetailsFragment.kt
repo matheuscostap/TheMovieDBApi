@@ -10,8 +10,10 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import com.costa.matheus.filmesapi.R
+import com.costa.matheus.filmesapi.model.dto.CastModel
 import com.costa.matheus.filmesapi.model.dto.MovieDetailModel
 import com.costa.matheus.filmesapi.repository.state.RequestState
 import com.costa.matheus.filmesapi.utils.Constants
@@ -29,6 +31,8 @@ class MovieDetailsFragment : BaseFragment() {
     private val viewModel: MovieDetailsViewModel by viewModel()
     private var movieDetailModel: MovieDetailModel? = null
     private var movieId = 0L
+    private val castList = arrayListOf<CastModel>()
+    private lateinit var castAdapter: CastListAdpter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,8 +65,12 @@ class MovieDetailsFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycle.addObserver(movie_details_player)
+
+        setupCastList()
+
         observeViewModel()
         viewModel.getMovieDetail(movieId)
+        viewModel.getCast(movieId)
     }
 
 
@@ -119,6 +127,13 @@ class MovieDetailsFragment : BaseFragment() {
         }
     }
 
+    private fun setupCastList() {
+        castAdapter = CastListAdpter(requireContext(), castList)
+        val llm = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        rv_cast.layoutManager = llm
+        rv_cast.adapter = castAdapter
+    }
+
     private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.state.collect { state ->
@@ -134,6 +149,37 @@ class MovieDetailsFragment : BaseFragment() {
                         state.data.let {
                             movieDetailModel = it
                             setupView()
+                        }
+                    }
+
+                    is RequestState.Error -> {
+                        if(!state.consumed) {
+                            Log.i("Trending", state.throwable.message)
+                            state.consumed = true
+
+                            Toast.makeText(
+                                requireContext(),
+                                "Erro: ${state.throwable.message}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.castState.collect { state ->
+
+                when(state) {
+                    is RequestState.Loading -> {
+
+                    }
+
+                    is RequestState.Success -> {
+                        state.data?.let { data ->
+                            castList.addAll(data.cast)
+                            castAdapter.notifyDataSetChanged()
                         }
                     }
 
