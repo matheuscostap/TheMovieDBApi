@@ -25,6 +25,7 @@ class CatalogueFragment : BaseFragment() {
     private var genres = arrayListOf<GenreModel>()
     private lateinit var adapter: CatalogueListAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -1,6 +1,7 @@
 package com.costa.matheus.filmesapi.view.moviedetails
 
 import com.costa.matheus.filmesapi.model.dto.MovieDetailModel
+import com.costa.matheus.filmesapi.model.response.CastResponse
 import com.costa.matheus.filmesapi.model.response.VideoResponse
 import com.costa.matheus.filmesapi.repository.moviedetails.MovieDetailsRepository
 import com.costa.matheus.filmesapi.repository.state.RequestState
@@ -15,6 +16,9 @@ class MovieDetailsViewModel (
     private val privateState = MutableStateFlow<RequestState<MovieDetailModel>>(RequestState.Success(null))
     val state: StateFlow<RequestState<MovieDetailModel>> get() = privateState
 
+    private val privateCastState = MutableStateFlow<RequestState<CastResponse>>(RequestState.Success(null))
+    val castState: StateFlow<RequestState<CastResponse>> get() = privateCastState
+
 
     fun getMovieDetail(movieId: Long) {
         jobs add launch {
@@ -25,6 +29,19 @@ class MovieDetailsViewModel (
                 privateState.value = RequestState.Success(response)
             }catch (t: Throwable) {
                 privateState.value = RequestState.Error(t, false)
+            }
+        }
+    }
+
+    fun getCast(movieId: Long) {
+        jobs add launch {
+            privateCastState.value = RequestState.Loading
+
+            try {
+                val response = repository.getCast(movieId).await()
+                privateCastState.value = RequestState.Success(response)
+            }catch (t: Throwable) {
+                privateCastState.value = RequestState.Error(t, false)
             }
         }
     }

@@ -191,36 +191,57 @@
                     android:layout_width="140dp"
                     android:layout_height="180dp"
                     android:layout_margin="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_movie_overview" />
 
             <Button
-                    android:textSize="20sp"
-                    android:text="Avaliar"
                     android:id="@+id/btn_movie_rate"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_margin="16dp"
+                    android:text="Avaliar"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toTopOf="@+id/btn_movie_reviews"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/iv_movie_details_poster"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_movie_overview"
+                    app:layout_constraintTop_toTopOf="@+id/iv_movie_details_poster"
                     app:layout_constraintVertical_chainStyle="packed" />
 
             <Button
-                    android:textSize="20sp"
-                    android:text="Resenhas"
                     android:id="@+id/btn_movie_reviews"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_margin="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="Resenhas"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_movie_details_poster"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/iv_movie_details_poster"
                     app:layout_constraintTop_toBottomOf="@+id/btn_movie_rate" />
+
+            <TextView
+                    android:textColor="@color/white"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginTop="24dp"
+                    android:id="@+id/tv_cast"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Elenco"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/iv_movie_details_poster" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/rv_cast"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_cast"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
