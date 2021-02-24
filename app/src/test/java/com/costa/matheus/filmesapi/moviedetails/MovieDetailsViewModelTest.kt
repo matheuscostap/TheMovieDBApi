@@ -2,8 +2,10 @@ package com.costa.matheus.filmesapi.moviedetails
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.costa.matheus.filmesapi.CoroutineRule
+import com.costa.matheus.filmesapi.model.dto.CastModel
 import com.costa.matheus.filmesapi.model.dto.MovieDetailModel
 import com.costa.matheus.filmesapi.model.dto.VideoModel
+import com.costa.matheus.filmesapi.model.response.CastResponse
 import com.costa.matheus.filmesapi.model.response.TrendingResponse
 import com.costa.matheus.filmesapi.model.response.VideoResponse
 import com.costa.matheus.filmesapi.repository.moviedetails.MovieDetailsRepository
@@ -129,5 +131,80 @@ class MovieDetailsViewModelTest {
     fun canShowVideoMustReturnFalseTest() {
         val videoResponse = VideoResponse(emptyList())
         Assert.assertFalse(viewModel.canShowVideo(videoResponse))
+    }
+
+    @Test
+    fun getCastInitialStateTest() {
+        val currentState = viewModel.castState.value
+        Assert.assertTrue(currentState is RequestState.Success && currentState.data == null)
+    }
+
+    @Test
+    fun getCastSuccessStateTest() = coroutineRule.runBlockingTest {
+        val apiReturn = mockk<CastResponse>()
+
+        coEvery { repository.getCast(1).await() } returns apiReturn
+
+        viewModel.getCast(1)
+        val currentState = viewModel.castState.value
+
+        Assert.assertTrue(currentState is RequestState.Success)
+        Assert.assertTrue((currentState as RequestState.Success).data == apiReturn)
+    }
+
+    @Test
+    fun getCastErrorStateTest() = coroutineRule.runBlockingTest {
+        coEvery { repository.getCast(1).await() } throws Exception()
+
+        viewModel.getCast(1)
+        val currentState = viewModel.castState.value
+
+        Assert.assertTrue(currentState is RequestState.Error)
+    }
+
+
+    @Test
+    fun getCastLoadingAndSuccessStateTest() = coroutineRule.runBlockingTest {
+        val statesHistory = mutableListOf<RequestState<CastResponse>>()
+
+        val job = launch {
+            viewModel.castState.toList(statesHistory)
+        }
+
+        val apiReturn = mockk<CastResponse>()
+
+        coEvery { repository.getCast(1).await() } returns apiReturn
+
+        viewModel.getCast(1)
+
+        //Testando Loading State
+        Assert.assertTrue(statesHistory[1] is RequestState.Loading)
+
+        //Testando Success State
+        Assert.assertTrue(statesHistory[2] is RequestState.Success)
+        Assert.assertTrue((statesHistory[2] as RequestState.Success).data == apiReturn)
+
+        job.cancel()
+    }
+
+    @Test
+    fun getCastLoadingAndErrorStateTest() = coroutineRule.runBlockingTest {
+        val statesHistory = mutableListOf<RequestState<CastResponse>>()
+
+        val job = launch {
+            viewModel.castState.toList(statesHistory)
+        }
+
+        coEvery { repository.getCast(1).await() } throws Exception()
+
+        viewModel.getCast(1)
+
+        //Testando Loading State
+        Assert.assertTrue(statesHistory[1] is RequestState.Loading)
+
+        //Testando Error State
+        Assert.assertTrue(statesHistory[2] is RequestState.Error)
+
+        job.cancel()
     }
 }
