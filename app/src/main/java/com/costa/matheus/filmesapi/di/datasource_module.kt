@@ -3,6 +3,8 @@ package com.costa.matheus.filmesapi.di
 import com.costa.matheus.filmesapi.repository.catalogue.CatalogueDataSource
 import com.costa.matheus.filmesapi.repository.celebrities.CelebritiesDataSource
 import com.costa.matheus.filmesapi.repository.moviedetails.MovieDetailsDataSource
+import com.costa.matheus.filmesapi.repository.searchresults.SearchResultsDataSource
+import com.costa.matheus.filmesapi.repository.searchresults.SearchResultsRepository
 import com.costa.matheus.filmesapi.repository.trending.TrendingDataSource
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,6 +21,7 @@ val retrofit_module = module {
     single { createWebService<CatalogueDataSource>(get(), API_URL) }
     single { createWebService<CelebritiesDataSource>(get(), API_URL) }
     single { createWebService<MovieDetailsDataSource>(get(), API_URL) }
+    single { createWebService<SearchResultsDataSource>(get(), API_URL) }
 }
 
 fun createOkHttpClient(): OkHttpClient {

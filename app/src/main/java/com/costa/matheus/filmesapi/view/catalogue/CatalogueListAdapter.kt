@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.row_catalogue.view.*
 
 class CatalogueListAdapter (
     private val ctx: Context,
-    private val genres: List<GenreModel>): RecyclerView.Adapter<CatalogueViewHolder>(){
+    private val genres: List<GenreModel>,
+    private val onClick: (GenreModel) -> Unit): RecyclerView.Adapter<CatalogueViewHolder>(){
 
     private val mapper = GenreImageMapper()
 
@@ -31,8 +32,7 @@ class CatalogueListAdapter (
             holder.iv_genre_background.load(ctx.getDrawable(it))
         }
 
-
-
+        holder.itemView.setOnClickListener { onClick(model) }
         holder.tv_genre_name.text = model.name
     }
 

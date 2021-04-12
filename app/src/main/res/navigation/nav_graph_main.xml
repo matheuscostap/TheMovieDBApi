@@ -41,6 +41,28 @@
         android:label="catalogue_fragment"
         tools:layout="@layout/fragment_catalogue">
 
+        <action
+                android:id="@+id/action_catalogue_to_search_results"
+                app:destination="@id/searchResults"/>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/searchResults"
+            android:name="com.costa.matheus.filmesapi.view.searchresults.SearchResultsFragment"
+            android:label="search_results_fragment"
+            tools:layout="@layout/fragment_search_results">
+
+        <argument
+                android:name="genreId"
+                app:argType="long"
+                android:defaultValue="0L"/>
+
+        <argument
+                android:name="genreName"
+                app:argType="string"
+                android:defaultValue="Filmes"/>
+
     </fragment>
 
     <fragment
