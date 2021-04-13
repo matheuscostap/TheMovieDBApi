@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.costa.matheus.filmesapi.R
+import com.costa.matheus.filmesapi.model.dto.MovieModel
 import com.costa.matheus.filmesapi.view.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_celebrities.*
 import kotlinx.android.synthetic.main.fragment_search_results.*
@@ -70,7 +72,11 @@ class SearchResultsFragment : BaseFragment() {
     }
 
     private fun setupList() {
-        adapter = SearchResultsListAdapter(requireContext(), SearchResultItemComparator)
+        adapter = SearchResultsListAdapter(
+            requireContext(),
+            SearchResultItemComparator,
+            onItemClick = { movieModel -> goToMovieDetails(movieModel) })
+
         val glm = GridLayoutManager(requireContext(), 2)
         rv_search_results.adapter = adapter
         rv_search_results.layoutManager = glm
@@ -98,6 +104,13 @@ class SearchResultsFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    private fun goToMovieDetails(movie: MovieModel) {
+        val bundle = bundleOf("movieId" to movie.id, "movieName" to movie.title)
+        val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.action_search_results_to_movie_details, bundle)
     }
 
 }

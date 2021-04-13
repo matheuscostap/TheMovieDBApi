@@ -16,14 +16,15 @@ import kotlinx.android.synthetic.main.row_search_result.view.*
 
 class SearchResultsListAdapter (
     private val ctx: Context,
-    diffCallback: DiffUtil.ItemCallback<MovieModel>
+    diffCallback: DiffUtil.ItemCallback<MovieModel>,
+    private val onItemClick: (MovieModel) -> Unit,
 ) : PagingDataAdapter<MovieModel, SearchResultsViewHolder>(diffCallback) {
 
     override fun onBindViewHolder(holder: SearchResultsViewHolder, position: Int) {
         val model = getItem(position)
 
-        model?.let {
-            holder.iv_movie_poster_search.load("${Constants.imagePath1280}${it.poster_path}") {
+        model?.let { movieModel ->
+            holder.iv_movie_poster_search.load("${Constants.imagePath1280}${movieModel.poster_path}") {
                 crossfade(true)
                 transformations(
                     RoundedCornersTransformation(
@@ -35,7 +36,8 @@ class SearchResultsListAdapter (
                 )
             }
 
-            holder.tv_movie_name_search.text = it.title
+            holder.tv_movie_name_search.text = movieModel.title
+            holder.itemView.setOnClickListener { onItemClick(movieModel) }
         }
     }
 

@@ -63,6 +63,10 @@
                 app:argType="string"
                 android:defaultValue="Filmes"/>
 
+        <action
+            android:id="@+id/action_search_results_to_movie_details"
+            app:destination="@id/movieDetails"/>
+
     </fragment>
 
     <fragment

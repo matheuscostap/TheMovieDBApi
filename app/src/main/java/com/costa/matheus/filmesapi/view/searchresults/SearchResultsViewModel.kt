@@ -14,11 +14,16 @@ import kotlinx.coroutines.flow.Flow
 class SearchResultsViewModel (
     private val repository: SearchResultsRepository) : BaseViewModel() {
 
+    private var pagingSource: SearchResultsPagingSource? = null
+
 
     fun searchByGenre(genreId: Long): Flow<PagingData<MovieModel>> {
+        pagingSource = SearchResultsPagingSource(repository, genreId)
         return Pager(
             config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = { SearchResultsPagingSource(repository, genreId) }
+            pagingSourceFactory = { pagingSource!! }
         ).flow.cachedIn(viewModelScope)
     }
+
+    fun reloadList() = pagingSource?.invalidate()
 }
