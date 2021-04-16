@@ -4,6 +4,8 @@ import com.costa.matheus.filmesapi.repository.catalogue.CatalogueRepository
 import com.costa.matheus.filmesapi.repository.catalogue.CatalogueRepositoryImpl
 import com.costa.matheus.filmesapi.repository.celebrities.CelebritiesRepository
 import com.costa.matheus.filmesapi.repository.celebrities.CelebritiesRepositoryImpl
+import com.costa.matheus.filmesapi.repository.login.LoginRepository
+import com.costa.matheus.filmesapi.repository.login.LoginRepositoryImpl
 import com.costa.matheus.filmesapi.repository.moviedetails.MovieDetailsRepository
 import com.costa.matheus.filmesapi.repository.moviedetails.MovieDetailsRepositoryImpl
 import com.costa.matheus.filmesapi.repository.searchresults.SearchResultsRepository
@@ -13,6 +15,7 @@ import com.costa.matheus.filmesapi.repository.trending.TrendingRepository
 import com.costa.matheus.filmesapi.repository.trending.TrendingRepositoryImpl
 import com.costa.matheus.filmesapi.view.catalogue.CatalogueViewModel
 import com.costa.matheus.filmesapi.view.celebrities.CelebritiesViewModel
+import com.costa.matheus.filmesapi.view.login.LoginViewModel
 import com.costa.matheus.filmesapi.view.moviedetails.MovieDetailsViewModel
 import com.costa.matheus.filmesapi.view.searchresults.SearchResultsViewModel
 import com.costa.matheus.filmesapi.view.trending.TrendingViewModel
@@ -25,10 +28,12 @@ val app_module = module {
     viewModel { CelebritiesViewModel(get()) }
     viewModel { MovieDetailsViewModel(get()) }
     viewModel { SearchResultsViewModel(get()) }
+    viewModel { LoginViewModel(get()) }
 
     single { TrendingRepositoryImpl(get()) as TrendingRepository }
     single { CatalogueRepositoryImpl(get()) as CatalogueRepository}
     single { CelebritiesRepositoryImpl(get()) as CelebritiesRepository}
     single { MovieDetailsRepositoryImpl(get()) as MovieDetailsRepository }
     single { SearchResultsRepositoryImpl(get()) as SearchResultsRepository}
+    single { LoginRepositoryImpl(get()) as LoginRepository }
 }

@@ -83,6 +83,17 @@
         android:label="settings_fragment"
         tools:layout="@layout/fragment_settings">
 
+        <action
+            android:id="@+id/action_settings_to_login"
+            app:destination="@id/login"/>
+
     </fragment>
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.costa.matheus.filmesapi.view.login.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/fragment_login"/>
+
 
 </navigation>
