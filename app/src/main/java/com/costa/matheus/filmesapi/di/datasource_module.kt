@@ -1,5 +1,6 @@
 package com.costa.matheus.filmesapi.di
 
+import com.costa.matheus.filmesapi.repository.account.AccountDataSource
 import com.costa.matheus.filmesapi.repository.catalogue.CatalogueDataSource
 import com.costa.matheus.filmesapi.repository.celebrities.CelebritiesDataSource
 import com.costa.matheus.filmesapi.repository.login.LoginDataSource
@@ -24,6 +25,7 @@ val retrofit_module = module {
     single { createWebService<MovieDetailsDataSource>(get(), API_URL) }
     single { createWebService<SearchResultsDataSource>(get(), API_URL) }
     single { createWebService<LoginDataSource>(get(), API_URL) }
+    single { createWebService<AccountDataSource>(get(), API_URL) }
 }
 
 fun createOkHttpClient(): OkHttpClient {

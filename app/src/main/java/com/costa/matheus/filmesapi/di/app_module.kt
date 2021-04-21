@@ -1,5 +1,7 @@
 package com.costa.matheus.filmesapi.di
 
+import com.costa.matheus.filmesapi.repository.account.AccountRepository
+import com.costa.matheus.filmesapi.repository.account.AccountRepositoryImpl
 import com.costa.matheus.filmesapi.repository.catalogue.CatalogueRepository
 import com.costa.matheus.filmesapi.repository.catalogue.CatalogueRepositoryImpl
 import com.costa.matheus.filmesapi.repository.celebrities.CelebritiesRepository
@@ -28,7 +30,7 @@ val app_module = module {
     viewModel { CelebritiesViewModel(get()) }
     viewModel { MovieDetailsViewModel(get()) }
     viewModel { SearchResultsViewModel(get()) }
-    viewModel { LoginViewModel(get()) }
+    viewModel { LoginViewModel(get(), get()) }
 
     single { TrendingRepositoryImpl(get()) as TrendingRepository }
     single { CatalogueRepositoryImpl(get()) as CatalogueRepository}
@@ -36,4 +38,5 @@ val app_module = module {
     single { MovieDetailsRepositoryImpl(get()) as MovieDetailsRepository }
     single { SearchResultsRepositoryImpl(get()) as SearchResultsRepository}
     single { LoginRepositoryImpl(get()) as LoginRepository }
+    single { AccountRepositoryImpl(get()) as AccountRepository }
 }

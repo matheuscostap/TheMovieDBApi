@@ -11,14 +11,14 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.DialogFragment
 import com.costa.matheus.filmesapi.R
+import com.costa.matheus.filmesapi.utils.Constants
 import kotlinx.android.synthetic.main.webview_dialog_layout.*
 
 class WebViewDialogFragment(
-    private val onFlowFinish: (String?) -> Unit): DialogFragment() {
+    private val onFlowFinish: () -> Unit): DialogFragment() {
 
     var requestToken = ""
-    private val redirectUrl = "https://filmesapi"
-    private val queryParameter = "request_token"
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +46,8 @@ class WebViewDialogFragment(
             ): Boolean {
 
                 request?.let {
-                    if(it.url.toString().startsWith(redirectUrl)) {
-                        val token = it.url.getQueryParameter(queryParameter)
-                        onFlowFinish(token)
+                    if(it.url.toString().startsWith(Constants.redirectUrl)) {
+                        onFlowFinish()
                         dismiss()
                     }
                 }
@@ -57,7 +56,7 @@ class WebViewDialogFragment(
             }
         }
 
-        webView.loadUrl("https://www.themoviedb.org/authenticate/$requestToken?redirect_to=$redirectUrl")
+        webView.loadUrl("https://www.themoviedb.org/auth/access?request_token=$requestToken")
     }
 
 }

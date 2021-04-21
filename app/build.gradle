@@ -20,6 +20,7 @@ ext {
     mockk_version = "1.10.4"
     arch_test_version = "2.1.0"
     coroutines_test_version = "1.4.2"
+    hawk_version = "2.0.1"
 }
 
 def keyFile = rootProject.file("key.properties")
@@ -42,6 +43,7 @@ android {
         dsv{
             dimension "default"
             buildConfigField('String', 'MoviesAPIKey', props['movies_api_key'])
+            buildConfigField('String', 'MoviesAPIKeyV4', props['movies_api_key_v4'])
         }
     }
     buildTypes {
@@ -83,6 +85,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
 
+    //Hawk
+    implementation "com.orhanobut:hawk:$hawk_version"
 
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"

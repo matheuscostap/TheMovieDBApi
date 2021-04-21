@@ -1,14 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.login.LoginFragment">
+        tools:context=".view.login.LoginFragment"
+        android:background="@color/black">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_logged_in"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Login Fragment" />
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:layout_marginBottom="32dp"
+                android:id="@+id/iv_profile_image_login"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_welcome_login"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/tv_welcome_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_account_login"
+                app:layout_constraintTop_toBottomOf="@+id/iv_profile_image_login" />
+
+        <TextView
+                android:textColor="@color/white"
+                android:layout_marginBottom="48dp"
+                android:id="@+id/tv_account_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sua conta TMDB foi vinculada ao app."
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/btn_ok_login"
+                app:layout_constraintTop_toBottomOf="@+id/tv_welcome_login" />
+
+        <Button
+                android:id="@+id/btn_ok_login"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OK"
+                android:textColor="@color/blue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_login" />
+
+
+        <ProgressBar
+                android:id="@+id/progress_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
