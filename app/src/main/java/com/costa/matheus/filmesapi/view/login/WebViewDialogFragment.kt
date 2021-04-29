@@ -13,9 +13,11 @@ import androidx.fragment.app.DialogFragment
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.utils.Constants
 import kotlinx.android.synthetic.main.webview_dialog_layout.*
+import kotlinx.android.synthetic.main.webview_dialog_layout.view.*
 
 class WebViewDialogFragment(
-    private val onFlowFinish: () -> Unit): DialogFragment() {
+    private val onFlowFinish: () -> Unit,
+    private val onCancel: () -> Unit): DialogFragment() {
 
     var requestToken = ""
 
@@ -32,6 +34,12 @@ class WebViewDialogFragment(
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.webview_dialog_layout, container, false)
+
+        view.btn_close.setOnClickListener {
+            dismiss()
+            onCancel()
+        }
+
         return view
     }
 

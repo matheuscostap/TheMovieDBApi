@@ -1,5 +1,6 @@
 package com.costa.matheus.filmesapi.view.login
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import coil.api.load
@@ -20,6 +22,7 @@ import com.costa.matheus.filmesapi.utils.Constants
 import com.costa.matheus.filmesapi.view.base.BaseFragment
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -45,9 +48,16 @@ class LoginFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view = inflater.inflate(R.layout.fragment_login, container, false)
+
         setToolbarTitle("Login")
         setToolbarBackButtonEnabled(true)
-        return inflater.inflate(R.layout.fragment_login, container, false)
+
+        view.btn_ok_login.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,6 +75,8 @@ class LoginFragment : BaseFragment() {
     private fun openWebView(requestToken: String) {
         val dialog = WebViewDialogFragment(onFlowFinish = {
             viewModel.getAccessToken(GetAccessTokenRequestBody(Hawk.get(Constants.requestTokenKey)))
+        }, onCancel = {
+            showErrorAlert()
         })
 
         dialog.requestToken = requestToken
@@ -91,11 +103,7 @@ class LoginFragment : BaseFragment() {
                         if(!state.consumed) {
                             Log.i("Trending", state.throwable.message)
                             state.consumed = true
-
-                            Toast.makeText(
-                                requireContext(),
-                                "Erro: ${state.throwable.message}",
-                                Toast.LENGTH_LONG).show()
+                            showErrorAlert()
                         }
                     }
                 }
@@ -124,11 +132,7 @@ class LoginFragment : BaseFragment() {
                         if(!state.consumed) {
                             Log.i("Trending", state.throwable.message)
                             state.consumed = true
-
-                            Toast.makeText(
-                                requireContext(),
-                                "Erro: ${state.throwable.message}",
-                                Toast.LENGTH_LONG).show()
+                            showErrorAlert()
                         }
                     }
                 }
@@ -157,11 +161,7 @@ class LoginFragment : BaseFragment() {
                         if(!state.consumed) {
                             Log.i("Trending", state.throwable.message)
                             state.consumed = true
-
-                            Toast.makeText(
-                                requireContext(),
-                                "Erro: ${state.throwable.message}",
-                                Toast.LENGTH_LONG).show()
+                            showErrorAlert()
                         }
                     }
                 }
@@ -196,16 +196,25 @@ class LoginFragment : BaseFragment() {
                             Log.i("Trending", state.throwable.message)
                             state.consumed = true
 
-                            Toast.makeText(
-                                requireContext(),
-                                "Erro: ${state.throwable.message}",
-                                Toast.LENGTH_LONG).show()
+                            showErrorAlert()
                         }
                     }
                 }
 
             }
         }
+    }
+
+    private fun showErrorAlert(){
+        AlertDialog.Builder(requireContext())
+            .setTitle("Erro")
+            .setMessage("Erro ao vincular conta. Tente novamente.")
+            .setNeutralButton("Ok") { dialog, which ->
+                dialog.dismiss()
+                requireActivity().onBackPressed()
+            }
+            .setCancelable(false)
+            .show()
     }
 
 }
