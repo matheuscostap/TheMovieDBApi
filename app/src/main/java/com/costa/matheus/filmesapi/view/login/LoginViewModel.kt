@@ -80,16 +80,20 @@ class LoginViewModel (
         }
     }
 
-    fun saveRequestToken(token: String): Boolean {
+    fun saveRequestToken(token: AppTokenModel): Boolean {
         return Hawk.put(Constants.requestTokenKey, token)
     }
 
-    fun saveAccessToken(token: String): Boolean {
+    fun saveAccessToken(token: UserAccessTokenModel): Boolean {
         return Hawk.put(Constants.userAccessTokenKey, token)
     }
 
-    fun saveSessionId(sessionId: String): Boolean {
-        return Hawk.put(Constants.sessionIdKey, sessionId)
+    fun saveSession(session: SessionModel): Boolean {
+        return Hawk.put(Constants.sessionIdKey, session)
+    }
+
+    fun saveAccount(account: AccountModel): Boolean {
+        return Hawk.put(Constants.accountKey, account)
     }
 
 }

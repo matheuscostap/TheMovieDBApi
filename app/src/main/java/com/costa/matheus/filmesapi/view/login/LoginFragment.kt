@@ -1,12 +1,10 @@
 package com.costa.matheus.filmesapi.view.login
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.costa.matheus.filmesapi.R
+import com.costa.matheus.filmesapi.model.dto.AppTokenModel
 import com.costa.matheus.filmesapi.model.dto.CreateSessionRequestBody
 import com.costa.matheus.filmesapi.model.dto.GetAccessTokenRequestBody
 import com.costa.matheus.filmesapi.model.dto.LoginRequestTokenBody
@@ -74,8 +73,10 @@ class LoginFragment : BaseFragment() {
 
     private fun openWebView(requestToken: String) {
         val dialog = WebViewDialogFragment(onFlowFinish = {
-            viewModel.getAccessToken(GetAccessTokenRequestBody(Hawk.get(Constants.requestTokenKey)))
+            val appTokenModel: AppTokenModel = Hawk.get(Constants.requestTokenKey)
+            viewModel.getAccessToken(GetAccessTokenRequestBody(appTokenModel.request_token))
         }, onCancel = {
+            Log.i("LoginFragment", "webview onCancel")
             showErrorAlert()
         })
 
@@ -94,7 +95,7 @@ class LoginFragment : BaseFragment() {
 
                     is RequestState.Success -> {
                         state.data?.let { appTokenModel ->
-                            viewModel.saveRequestToken(appTokenModel.request_token)
+                            viewModel.saveRequestToken(appTokenModel)
                             openWebView(appTokenModel.request_token)
                         }
                     }
@@ -123,7 +124,7 @@ class LoginFragment : BaseFragment() {
 
                     is RequestState.Success -> {
                         state.data?.let { userAccessToken ->
-                            viewModel.saveAccessToken(userAccessToken.access_token)
+                            viewModel.saveAccessToken(userAccessToken)
                             viewModel.createSession(CreateSessionRequestBody(userAccessToken.access_token))
                         }
                     }
@@ -152,7 +153,7 @@ class LoginFragment : BaseFragment() {
 
                     is RequestState.Success -> {
                         state.data?.let { sessionModel ->
-                            viewModel.saveSessionId(sessionModel.session_id)
+                            viewModel.saveSession(sessionModel)
                             viewModel.getAccount()
                         }
                     }
@@ -188,6 +189,7 @@ class LoginFragment : BaseFragment() {
                             }
 
                             tv_welcome_login.text = "Bem vindo, ${accountModel.username}!"
+                            viewModel.saveAccount(accountModel)
                         }
                     }
 

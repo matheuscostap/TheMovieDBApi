@@ -12,7 +12,8 @@ import com.costa.matheus.filmesapi.repository.moviedetails.MovieDetailsRepositor
 import com.costa.matheus.filmesapi.repository.moviedetails.MovieDetailsRepositoryImpl
 import com.costa.matheus.filmesapi.repository.searchresults.SearchResultsRepository
 import com.costa.matheus.filmesapi.repository.searchresults.SearchResultsRepositoryImpl
-import com.costa.matheus.filmesapi.repository.trending.TrendingDataSource
+import com.costa.matheus.filmesapi.repository.settings.LocalDataRepository
+import com.costa.matheus.filmesapi.repository.settings.LocalDataRepositoryImpl
 import com.costa.matheus.filmesapi.repository.trending.TrendingRepository
 import com.costa.matheus.filmesapi.repository.trending.TrendingRepositoryImpl
 import com.costa.matheus.filmesapi.view.catalogue.CatalogueViewModel
@@ -20,6 +21,7 @@ import com.costa.matheus.filmesapi.view.celebrities.CelebritiesViewModel
 import com.costa.matheus.filmesapi.view.login.LoginViewModel
 import com.costa.matheus.filmesapi.view.moviedetails.MovieDetailsViewModel
 import com.costa.matheus.filmesapi.view.searchresults.SearchResultsViewModel
+import com.costa.matheus.filmesapi.view.settings.SettingsViewModel
 import com.costa.matheus.filmesapi.view.trending.TrendingViewModel
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
@@ -31,6 +33,7 @@ val app_module = module {
     viewModel { MovieDetailsViewModel(get()) }
     viewModel { SearchResultsViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
+    viewModel { SettingsViewModel(get()) }
 
     single { TrendingRepositoryImpl(get()) as TrendingRepository }
     single { CatalogueRepositoryImpl(get()) as CatalogueRepository}
@@ -39,4 +42,5 @@ val app_module = module {
     single { SearchResultsRepositoryImpl(get()) as SearchResultsRepository}
     single { LoginRepositoryImpl(get()) as LoginRepository }
     single { AccountRepositoryImpl(get()) as AccountRepository }
+    single { LocalDataRepositoryImpl() as LocalDataRepository }
 }

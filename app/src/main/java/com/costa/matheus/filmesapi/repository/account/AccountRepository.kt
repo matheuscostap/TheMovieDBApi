@@ -2,6 +2,7 @@ package com.costa.matheus.filmesapi.repository.account
 
 import com.costa.matheus.filmesapi.BuildConfig
 import com.costa.matheus.filmesapi.model.dto.AccountModel
+import com.costa.matheus.filmesapi.model.dto.SessionModel
 import com.costa.matheus.filmesapi.utils.Constants
 import com.orhanobut.hawk.Hawk
 import kotlinx.coroutines.Deferred
@@ -20,7 +21,7 @@ class AccountRepositoryImpl(private val dataSource: AccountDataSource): AccountR
         async {
             dataSource.getAccount(
                 BuildConfig.MoviesAPIKey,
-                Hawk.get(Constants.sessionIdKey)
+                Hawk.get<SessionModel>(Constants.sessionIdKey).session_id
             )
         }
     }
