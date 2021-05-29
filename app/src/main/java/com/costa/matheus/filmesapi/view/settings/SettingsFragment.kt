@@ -46,8 +46,18 @@ class SettingsFragment : BaseFragment() {
             goToLogin()
         }
 
-        observeGetAccountState()
-        viewModel.getAccount()
+        verifyIfHasAccountSync()
+        setupSettingsSwitchs()
+    }
+
+    private fun verifyIfHasAccountSync() {
+        val account = viewModel.getAccount()
+
+        if (account != null) {
+            showAccountSyncView(account)
+        }else{
+            showRegularView()
+        }
     }
 
     private fun showAccountSyncView(account: AccountModel) {
@@ -67,30 +77,28 @@ class SettingsFragment : BaseFragment() {
         btn_login.visibility = View.VISIBLE
     }
 
+    private fun setupSettingsSwitchs() {
+        sw_autoplay.isChecked = viewModel.isAutoPlayEnabled()
+        sw_audio.isChecked = viewModel.isAudioEnabled()
+        sw_hq_image.isChecked = viewModel.isHqImageEnabled()
+
+        sw_autoplay.setOnCheckedChangeListener { _ , isChecked ->
+            viewModel.setAutoPlaySetting(isChecked)
+        }
+
+        sw_audio.setOnCheckedChangeListener { _ , isChecked ->
+            viewModel.setAudioSetting(isChecked)
+        }
+
+        sw_hq_image.setOnCheckedChangeListener { _ , isChecked ->
+            viewModel.setHqImageSetting(isChecked)
+        }
+    }
+
     private fun goToLogin() {
         val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         navController.navigate(R.id.action_settings_to_login)
-    }
-
-    private fun observeGetAccountState() {
-        lifecycleScope.launch {
-            viewModel.getAccountState.collect { state ->
-                when(state) {
-                    is RequestState.Loading -> {}
-
-                    is RequestState.Success -> {
-                        state.data?.let { accountModel ->
-                            showAccountSyncView(accountModel)
-                        }
-                    }
-
-                    is RequestState.Error -> {
-                        showRegularView()
-                    }
-                }
-            }
-        }
     }
 
 }

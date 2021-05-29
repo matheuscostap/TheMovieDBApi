@@ -16,6 +16,7 @@ import com.costa.matheus.filmesapi.repository.settings.LocalDataRepository
 import com.costa.matheus.filmesapi.repository.settings.LocalDataRepositoryImpl
 import com.costa.matheus.filmesapi.repository.trending.TrendingRepository
 import com.costa.matheus.filmesapi.repository.trending.TrendingRepositoryImpl
+import com.costa.matheus.filmesapi.utils.ImagePath
 import com.costa.matheus.filmesapi.view.catalogue.CatalogueViewModel
 import com.costa.matheus.filmesapi.view.celebrities.CelebritiesViewModel
 import com.costa.matheus.filmesapi.view.login.LoginViewModel

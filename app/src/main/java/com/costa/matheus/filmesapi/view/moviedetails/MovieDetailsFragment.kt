@@ -2,7 +2,6 @@ package com.costa.matheus.filmesapi.view.moviedetails
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,22 +16,24 @@ import com.costa.matheus.filmesapi.model.dto.CastModel
 import com.costa.matheus.filmesapi.model.dto.MovieDetailModel
 import com.costa.matheus.filmesapi.repository.state.RequestState
 import com.costa.matheus.filmesapi.utils.Constants
+import com.costa.matheus.filmesapi.utils.ImagePath
 import com.costa.matheus.filmesapi.view.base.BaseFragment
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import kotlinx.android.synthetic.main.fragment_movie_details.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MovieDetailsFragment : BaseFragment() {
 
     private val viewModel: MovieDetailsViewModel by viewModel()
+    private val imagePath = ImagePath(get())
     private var movieDetailModel: MovieDetailModel? = null
     private var movieId = 0L
     private val castList = arrayListOf<CastModel>()
-    private lateinit var castAdapter: CastListAdpter
+    private lateinit var castAdapter: CastListAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +96,7 @@ class MovieDetailsFragment : BaseFragment() {
     private fun showBackdropPoster(path: String) {
         iv_movie_backdrop_no_video.visibility = View.VISIBLE
         movie_details_player.visibility = View.GONE
-        iv_movie_backdrop_no_video.load("${Constants.imagePath1280}${path}")
+        iv_movie_backdrop_no_video.load(imagePath.getFinalPath(path))
     }
 
     private fun setupView() {
@@ -128,7 +129,7 @@ class MovieDetailsFragment : BaseFragment() {
     }
 
     private fun setupCastList() {
-        castAdapter = CastListAdpter(requireContext(), castList)
+        castAdapter = CastListAdapter(requireContext(), castList, imagePath)
         val llm = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         rv_cast.layoutManager = llm
         rv_cast.adapter = castAdapter

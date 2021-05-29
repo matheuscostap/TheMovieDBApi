@@ -9,11 +9,13 @@ import coil.api.load
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.dto.MovieModel
 import com.costa.matheus.filmesapi.utils.Constants
+import com.costa.matheus.filmesapi.utils.ImagePath
 import kotlinx.android.synthetic.main.trending_movie_row.view.*
 
 class TrendingListAdapter (
     val ctx: Context,
     private val items: List<MovieModel>,
+    private val imagePath: ImagePath,
     private val onItemClick: (MovieModel) -> Unit ): RecyclerView.Adapter<TrendingListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingListViewHolder {
@@ -25,7 +27,7 @@ class TrendingListAdapter (
         val movie = items[position]
 
         holder.tv_movie_name.text = movie.title
-        holder.iv_movie_poster.load("${Constants.imagePath1280}${movie.backdrop_path}")
+        holder.iv_movie_poster.load(imagePath.getFinalPath(movie.backdrop_path))
         holder.itemView.setOnClickListener { onItemClick(movie) }
     }
 

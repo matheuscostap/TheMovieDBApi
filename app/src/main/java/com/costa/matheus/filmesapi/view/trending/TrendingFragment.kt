@@ -14,15 +14,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.dto.MovieModel
 import com.costa.matheus.filmesapi.repository.state.RequestState
+import com.costa.matheus.filmesapi.utils.ImagePath
 import com.costa.matheus.filmesapi.view.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_trending.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class TrendingFragment : BaseFragment() {
 
     private val viewModel: TrendingViewModel by viewModel()
+    private val imagePath = ImagePath(get())
     private lateinit var adapter: TrendingListAdapter
     private var movies = arrayListOf<MovieModel>()
 
@@ -51,7 +54,7 @@ class TrendingFragment : BaseFragment() {
     }
 
     private fun setupList() {
-        adapter = TrendingListAdapter(requireContext(), movies, onItemClick = {
+        adapter = TrendingListAdapter(requireContext(), movies, imagePath, onItemClick = {
             goToMovieDetails(it)
         })
         val llm = LinearLayoutManager(requireContext())

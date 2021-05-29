@@ -9,15 +9,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.costa.matheus.filmesapi.R
+import com.costa.matheus.filmesapi.utils.ImagePath
 import com.costa.matheus.filmesapi.view.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_celebrities.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class CelebritiesFragment : BaseFragment() {
 
     private val viewModel: CelebritiesViewModel by viewModel()
+    private val imagePath = ImagePath(get())
     private lateinit var adapter: CelebritiesListAdapter
 
 
@@ -44,7 +47,7 @@ class CelebritiesFragment : BaseFragment() {
     }
 
     private fun setupList() {
-        adapter = CelebritiesListAdapter(requireContext(), CelebritiesItemComparator)
+        adapter = CelebritiesListAdapter(requireContext(), CelebritiesItemComparator, imagePath)
         val llm = LinearLayoutManager(requireContext())
         rv_celebrities.adapter = adapter
         rv_celebrities.layoutManager = llm

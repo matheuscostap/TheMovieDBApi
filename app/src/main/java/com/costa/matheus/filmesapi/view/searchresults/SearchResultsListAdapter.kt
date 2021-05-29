@@ -12,19 +12,20 @@ import coil.transform.RoundedCornersTransformation
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.dto.MovieModel
 import com.costa.matheus.filmesapi.utils.Constants
+import com.costa.matheus.filmesapi.utils.ImagePath
 import kotlinx.android.synthetic.main.row_search_result.view.*
 
 class SearchResultsListAdapter (
     private val ctx: Context,
     diffCallback: DiffUtil.ItemCallback<MovieModel>,
-    private val onItemClick: (MovieModel) -> Unit,
-) : PagingDataAdapter<MovieModel, SearchResultsViewHolder>(diffCallback) {
+    private val imagePath: ImagePath,
+    private val onItemClick: (MovieModel) -> Unit) : PagingDataAdapter<MovieModel, SearchResultsViewHolder>(diffCallback) {
 
     override fun onBindViewHolder(holder: SearchResultsViewHolder, position: Int) {
         val model = getItem(position)
 
         model?.let { movieModel ->
-            holder.iv_movie_poster_search.load("${Constants.imagePath1280}${movieModel.poster_path}") {
+            holder.iv_movie_poster_search.load(imagePath.getFinalPath(movieModel.poster_path)) {
                 crossfade(true)
                 transformations(
                     RoundedCornersTransformation(

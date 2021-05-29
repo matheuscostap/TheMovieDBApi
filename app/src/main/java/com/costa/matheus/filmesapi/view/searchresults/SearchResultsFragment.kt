@@ -14,16 +14,19 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.dto.MovieModel
+import com.costa.matheus.filmesapi.utils.ImagePath
 import com.costa.matheus.filmesapi.view.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_celebrities.*
 import kotlinx.android.synthetic.main.fragment_search_results.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SearchResultsFragment : BaseFragment() {
 
     private val viewModel: SearchResultsViewModel by viewModel()
+    private val imagePath = ImagePath(get())
     private lateinit var adapter: SearchResultsListAdapter
     private var genreId = 0L
 
@@ -75,6 +78,7 @@ class SearchResultsFragment : BaseFragment() {
         adapter = SearchResultsListAdapter(
             requireContext(),
             SearchResultItemComparator,
+            imagePath,
             onItemClick = { movieModel -> goToMovieDetails(movieModel) })
 
         val glm = GridLayoutManager(requireContext(), 2)

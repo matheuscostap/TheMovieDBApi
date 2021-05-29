@@ -10,11 +10,13 @@ import coil.transform.CircleCropTransformation
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.dto.CastModel
 import com.costa.matheus.filmesapi.utils.Constants
+import com.costa.matheus.filmesapi.utils.ImagePath
 import kotlinx.android.synthetic.main.row_cast.view.*
 
-class CastListAdpter (
+class CastListAdapter (
     private val ctx: Context,
-    private val castList: List<CastModel>): RecyclerView.Adapter<CastListViewHolder>() {
+    private val castList: List<CastModel>,
+    private val imagePath: ImagePath): RecyclerView.Adapter<CastListViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CastListViewHolder {
@@ -26,7 +28,7 @@ class CastListAdpter (
         val model = castList[position]
 
         holder.tv_cast_name.text = model.name
-        holder.iv_cast_photo.load("${Constants.imagePath1280}${model.profile_path}"){
+        holder.iv_cast_photo.load(imagePath.getFinalPath(model.profile_path)){
             crossfade(true)
             transformations(CircleCropTransformation())
         }

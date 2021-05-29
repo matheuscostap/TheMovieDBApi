@@ -12,19 +12,20 @@ import coil.transform.CircleCropTransformation
 import com.costa.matheus.filmesapi.R
 import com.costa.matheus.filmesapi.model.dto.CelebrityModel
 import com.costa.matheus.filmesapi.utils.Constants
+import com.costa.matheus.filmesapi.utils.ImagePath
 import kotlinx.android.synthetic.main.celebrities_row.view.*
 
 class CelebritiesListAdapter (
     private val ctx: Context,
-    diffCallback: DiffUtil.ItemCallback<CelebrityModel>
-): PagingDataAdapter<CelebrityModel, CelebritiesViewHolder>(diffCallback) {
+    diffCallback: DiffUtil.ItemCallback<CelebrityModel>,
+    private val imagePath: ImagePath): PagingDataAdapter<CelebrityModel, CelebritiesViewHolder>(diffCallback) {
 
     override fun onBindViewHolder(holder: CelebritiesViewHolder, position: Int) {
         val model = getItem(position)
 
         model?.let {
             holder.tv_celebrity_name.text = it.name
-            holder.iv_celebrity_photo.load("${Constants.imagePath1280}${it.profile_path}"){
+            holder.iv_celebrity_photo.load(imagePath.getFinalPath(it.profile_path)){
                 crossfade(true)
                 transformations(CircleCropTransformation())
             }
