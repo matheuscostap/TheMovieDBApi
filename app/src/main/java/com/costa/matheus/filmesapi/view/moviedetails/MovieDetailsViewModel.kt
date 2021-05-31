@@ -4,6 +4,7 @@ import com.costa.matheus.filmesapi.model.dto.MovieDetailModel
 import com.costa.matheus.filmesapi.model.response.CastResponse
 import com.costa.matheus.filmesapi.model.response.VideoResponse
 import com.costa.matheus.filmesapi.repository.moviedetails.MovieDetailsRepository
+import com.costa.matheus.filmesapi.repository.settings.LocalDataRepository
 import com.costa.matheus.filmesapi.repository.state.RequestState
 import com.costa.matheus.filmesapi.view.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +12,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel (
-    private val repository: MovieDetailsRepository) : BaseViewModel() {
+    private val repository: MovieDetailsRepository,
+    private val localDataRepository: LocalDataRepository) : BaseViewModel() {
 
     private val privateState = MutableStateFlow<RequestState<MovieDetailModel>>(RequestState.Success(null))
     val state: StateFlow<RequestState<MovieDetailModel>> get() = privateState
@@ -47,5 +49,13 @@ class MovieDetailsViewModel (
     }
 
     fun canShowVideo(videoResponse: VideoResponse) = videoResponse.results.isNotEmpty()
+
+    fun isAutoPlayEnabled(): Boolean {
+        return localDataRepository.isAutoPlayEnabled()
+    }
+    fun isAudioEnabled(): Boolean {
+        return localDataRepository.isAudioEnabled()
+    }
+
 
 }

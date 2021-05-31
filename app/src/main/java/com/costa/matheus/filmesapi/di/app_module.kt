@@ -31,7 +31,7 @@ val app_module = module {
     viewModel { TrendingViewModel(get()) }
     viewModel { CatalogueViewModel(get()) }
     viewModel { CelebritiesViewModel(get()) }
-    viewModel { MovieDetailsViewModel(get()) }
+    viewModel { MovieDetailsViewModel(get(), get()) }
     viewModel { SearchResultsViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
     viewModel { SettingsViewModel(get()) }

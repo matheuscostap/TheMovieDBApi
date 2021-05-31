@@ -91,6 +91,13 @@ class MovieDetailsFragment : BaseFragment() {
         iv_movie_backdrop_no_video.visibility = View.GONE
         movie_details_player.visibility = View.VISIBLE
         youTubePlayer.loadVideo(video, 0f)
+        applyVideoSetings(youTubePlayer)
+    }
+
+    private fun applyVideoSetings(youTubePlayer: YouTubePlayer) {
+        if (!viewModel.isAutoPlayEnabled()) {
+            youTubePlayer.pause()
+        }
     }
 
     private fun showBackdropPoster(path: String) {
