@@ -21,6 +21,8 @@ class MovieDetailsViewModel (
     private val privateCastState = MutableStateFlow<RequestState<CastResponse>>(RequestState.Success(null))
     val castState: StateFlow<RequestState<CastResponse>> get() = privateCastState
 
+    private var isAudioEnabled = false
+
 
     fun getMovieDetail(movieId: Long) {
         jobs add launch {
@@ -53,8 +55,15 @@ class MovieDetailsViewModel (
     fun isAutoPlayEnabled(): Boolean {
         return localDataRepository.isAutoPlayEnabled()
     }
-    fun isAudioEnabled(): Boolean {
-        return localDataRepository.isAudioEnabled()
+
+    fun isAudioEnabledInSettings(): Boolean {
+        isAudioEnabled = localDataRepository.isAudioEnabled()
+        return isAudioEnabled
+    }
+
+    fun toggleAudio(): Boolean {
+        isAudioEnabled = !isAudioEnabled
+        return isAudioEnabled
     }
 
 

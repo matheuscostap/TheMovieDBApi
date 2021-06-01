@@ -34,6 +34,7 @@ class MovieDetailsFragment : BaseFragment() {
     private var movieId = 0L
     private val castList = arrayListOf<CastModel>()
     private lateinit var castAdapter: CastListAdapter
+    private var youTubePlayer: YouTubePlayer? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,11 +73,27 @@ class MovieDetailsFragment : BaseFragment() {
         observeViewModel()
         viewModel.getMovieDetail(movieId)
         viewModel.getCast(movieId)
+        viewModel.isAudioEnabledInSettings()
+
+        btn_mute.setOnClickListener {
+            if (youTubePlayer != null) {
+                val isAudioEnable = viewModel.toggleAudio()
+
+                if(isAudioEnable){
+                    youTubePlayer?.setVolume(100)
+                    setAudioButtonOn()
+                }else{
+                    youTubePlayer?.setVolume(0)
+                    setAudioButtonOff()
+                }
+            }
+        }
     }
 
 
     private val playerListener = object : AbstractYouTubePlayerListener() {
         override fun onReady(youTubePlayer: YouTubePlayer) {
+            this@MovieDetailsFragment.youTubePlayer = youTubePlayer
             movieDetailModel?.let {
                 if(viewModel.canShowVideo(it.videos)) {
                     showVideo(youTubePlayer, it.videos.results[0].key)
@@ -88,19 +105,28 @@ class MovieDetailsFragment : BaseFragment() {
     }
 
     private fun showVideo(youTubePlayer: YouTubePlayer, video: String) {
+        btn_mute.visibility = View.VISIBLE
         iv_movie_backdrop_no_video.visibility = View.GONE
         movie_details_player.visibility = View.VISIBLE
         youTubePlayer.loadVideo(video, 0f)
-        applyVideoSetings(youTubePlayer)
+        applyVideoSettings(youTubePlayer)
     }
 
-    private fun applyVideoSetings(youTubePlayer: YouTubePlayer) {
+    private fun applyVideoSettings(youTubePlayer: YouTubePlayer) {
         if (!viewModel.isAutoPlayEnabled()) {
             youTubePlayer.pause()
+        }
+
+        if (!viewModel.isAudioEnabledInSettings()) {
+            youTubePlayer.setVolume(0)
+            setAudioButtonOff()
+        }else{
+            setAudioButtonOn()
         }
     }
 
     private fun showBackdropPoster(path: String) {
+        btn_mute.visibility = View.GONE
         iv_movie_backdrop_no_video.visibility = View.VISIBLE
         movie_details_player.visibility = View.GONE
         iv_movie_backdrop_no_video.load(imagePath.getFinalPath(path))
@@ -207,4 +233,13 @@ class MovieDetailsFragment : BaseFragment() {
             }
         }
     }
+
+    private fun setAudioButtonOn() {
+        btn_mute.setImageResource(R.drawable.ic_baseline_volume_up_24)
+    }
+
+    private fun setAudioButtonOff() {
+        btn_mute.setImageResource(R.drawable.ic_baseline_volume_off_24)
+    }
+
 }
