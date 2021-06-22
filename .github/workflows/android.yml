@@ -1,0 +1,19 @@
+name: TheMovieDB CI
+
+on:
+  push:
+    branches: [ versao_2 ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup JDK 1.8 
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Unit tests
+        run: bash ./gradlew test --stacktrace
