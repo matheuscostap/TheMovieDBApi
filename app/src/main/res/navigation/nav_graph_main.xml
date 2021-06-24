@@ -33,6 +33,10 @@
                 app:argType="string"
                 android:defaultValue="Detalhes"/>
 
+        <action
+            android:id="@+id/action_movie_details_to_reviews_fragment"
+            app:destination="@+id/reviews"/>
+
     </fragment>
 
     <fragment
@@ -94,6 +98,12 @@
         android:name="com.costa.matheus.filmesapi.view.login.LoginFragment"
         android:label="login_fragment"
         tools:layout="@layout/fragment_login"/>
+
+    <fragment
+        android:id="@+id/reviews"
+        android:name="com.costa.matheus.filmesapi.view.reviews.ReviewsFragment"
+        android:label="reviews_fragment"
+        tools:layout="@layout/fragment_reviews"/>
 
 
 </navigation>

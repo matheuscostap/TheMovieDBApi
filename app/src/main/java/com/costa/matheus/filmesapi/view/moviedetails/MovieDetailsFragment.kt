@@ -88,6 +88,10 @@ class MovieDetailsFragment : BaseFragment() {
                 }
             }
         }
+
+        btn_movie_reviews.setOnClickListener {
+            goToReviews()
+        }
     }
 
 
@@ -240,6 +244,12 @@ class MovieDetailsFragment : BaseFragment() {
 
     private fun setAudioButtonOff() {
         btn_mute.setImageResource(R.drawable.ic_baseline_volume_off_24)
+    }
+
+    private fun goToReviews() {
+        val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.action_movie_details_to_reviews_fragment)
     }
 
 }
