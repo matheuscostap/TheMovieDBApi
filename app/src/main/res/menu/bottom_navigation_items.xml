@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools">
+
+    <item android:id="@+id/trending"
+          android:title="Trending"
+          android:orderInCategory="1"
+          app:showAsAction="always"
+          android:icon="@drawable/ic_menu_trending"/>
+
+    <item android:id="@+id/catalogue"
+            android:title="Catalogue"
+            android:orderInCategory="2"
+            app:showAsAction="always"
+            android:icon="@drawable/ic_menu_catalogue"/>
+
+    <item android:id="@+id/celebrities"
+            android:title="Celebrities"
+            android:orderInCategory="3"
+            app:showAsAction="always"
+            android:icon="@drawable/ic_menu_celebrities"/>
+
+    <item android:id="@+id/settings"
+            android:title="Settings"
+            android:orderInCategory="4"
+            app:showAsAction="always"
+            android:icon="@drawable/ic_menu_settings"/>
+</menu>

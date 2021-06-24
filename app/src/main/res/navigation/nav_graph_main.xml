@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_graph_main"
+        app:startDestination="@id/trending">
+
+
+    <fragment
+        android:id="@+id/trending"
+        android:name="com.costa.matheus.filmesapi.view.trending.TrendingFragment"
+        android:label="trending_fragment"
+        tools:layout="@layout/fragment_trending">
+
+        <action
+                android:id="@+id/action_trending_to_movie_details"
+                app:destination="@id/movieDetails"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetails"
+        android:name="com.costa.matheus.filmesapi.view.moviedetails.MovieDetailsFragment"
+        android:label="movie_details_fragment"
+        tools:layout="@layout/fragment_movie_details">
+
+        <argument
+            android:name="movieId"
+            app:argType="long"
+            android:defaultValue="0L"/>
+
+        <argument
+                android:name="movieName"
+                app:argType="string"
+                android:defaultValue="Detalhes"/>
+
+        <action
+            android:id="@+id/action_movie_details_to_reviews_fragment"
+            app:destination="@+id/reviews"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/catalogue"
+        android:name="com.costa.matheus.filmesapi.view.catalogue.CatalogueFragment"
+        android:label="catalogue_fragment"
+        tools:layout="@layout/fragment_catalogue">
+
+        <action
+                android:id="@+id/action_catalogue_to_search_results"
+                app:destination="@id/searchResults"/>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/searchResults"
+            android:name="com.costa.matheus.filmesapi.view.searchresults.SearchResultsFragment"
+            android:label="search_results_fragment"
+            tools:layout="@layout/fragment_search_results">
+
+        <argument
+                android:name="genreId"
+                app:argType="long"
+                android:defaultValue="0L"/>
+
+        <argument
+                android:name="genreName"
+                app:argType="string"
+                android:defaultValue="Filmes"/>
+
+        <action
+            android:id="@+id/action_search_results_to_movie_details"
+            app:destination="@id/movieDetails"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/celebrities"
+        android:name="com.costa.matheus.filmesapi.view.celebrities.CelebritiesFragment"
+        android:label="celebrities_fragment"
+        tools:layout="@layout/fragment_celebrities">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.costa.matheus.filmesapi.view.settings.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/action_settings_to_login"
+            app:destination="@id/login"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.costa.matheus.filmesapi.view.login.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/fragment_login"/>
+
+    <fragment
+        android:id="@+id/reviews"
+        android:name="com.costa.matheus.filmesapi.view.reviews.ReviewsFragment"
+        android:label="reviews_fragment"
+        tools:layout="@layout/fragment_reviews"/>
+
+
+</navigation>

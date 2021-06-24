@@ -1,27 +1,70 @@
 package com.costa.matheus.filmesapi.view.moviedetails
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.costa.matheus.filmesapi.model.AbstractModel
-import com.costa.matheus.filmesapi.model.GenreResponseModel
-import com.costa.matheus.filmesapi.model.PopularResponseModel
-import com.costa.matheus.filmesapi.repository.MovieRepository
-import com.costa.matheus.filmesapi.repository.MoviesDataSource
+import com.costa.matheus.filmesapi.model.dto.MovieDetailModel
+import com.costa.matheus.filmesapi.model.response.CastResponse
+import com.costa.matheus.filmesapi.model.response.VideoResponse
+import com.costa.matheus.filmesapi.repository.moviedetails.MovieDetailsRepository
+import com.costa.matheus.filmesapi.repository.settings.LocalDataRepository
+import com.costa.matheus.filmesapi.repository.state.RequestState
+import com.costa.matheus.filmesapi.view.base.BaseViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
-class MovieDetailsViewModel (private val repository: MovieRepository): ViewModel(){
+class MovieDetailsViewModel (
+    private val repository: MovieDetailsRepository,
+    private val localDataRepository: LocalDataRepository) : BaseViewModel() {
 
-    val event = MutableLiveData<AbstractModel<GenreResponseModel>>()
-    val similarsEvent = MutableLiveData<AbstractModel<PopularResponseModel>>()
+    private val privateState = MutableStateFlow<RequestState<MovieDetailModel>>(RequestState.Success(null))
+    val state: StateFlow<RequestState<MovieDetailModel>> get() = privateState
 
-    fun getGenres(){
-        repository.getGenres {
-            event.value = it
+    private val privateCastState = MutableStateFlow<RequestState<CastResponse>>(RequestState.Success(null))
+    val castState: StateFlow<RequestState<CastResponse>> get() = privateCastState
+
+    private var isAudioEnabled = false
+
+
+    fun getMovieDetail(movieId: Long) {
+        jobs add launch {
+            privateState.value = RequestState.Loading
+
+            try {
+                val response = repository.getMovie(movieId).await()
+                privateState.value = RequestState.Success(response)
+            }catch (t: Throwable) {
+                privateState.value = RequestState.Error(t, false)
+            }
         }
     }
 
-    fun getSimilar(id: Long){
-        repository.getSimilar(id){
-            similarsEvent.value = it
+    fun getCast(movieId: Long) {
+        jobs add launch {
+            privateCastState.value = RequestState.Loading
+
+            try {
+                val response = repository.getCast(movieId).await()
+                privateCastState.value = RequestState.Success(response)
+            }catch (t: Throwable) {
+                privateCastState.value = RequestState.Error(t, false)
+            }
         }
     }
+
+    fun canShowVideo(videoResponse: VideoResponse) = videoResponse.results.isNotEmpty()
+
+    fun isAutoPlayEnabled(): Boolean {
+        return localDataRepository.isAutoPlayEnabled()
+    }
+
+    fun isAudioEnabledInSettings(): Boolean {
+        isAudioEnabled = localDataRepository.isAudioEnabled()
+        return isAudioEnabled
+    }
+
+    fun toggleAudio(): Boolean {
+        isAudioEnabled = !isAudioEnabled
+        return isAudioEnabled
+    }
+
+
 }
